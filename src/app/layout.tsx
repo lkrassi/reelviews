@@ -34,16 +34,14 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <>
-          <NotificationProvider>
-            <ModalProvider>
-              <div className="absolute top-4 right-4 z-3">
-                <ThemeSwitcher />
-              </div>
-              {children}
-            </ModalProvider>
-          </NotificationProvider>
-        </>
+        <NotificationProvider>
+          <ModalProvider>
+            <div className="absolute top-4 right-4 z-3">
+              <ThemeSwitcher />
+            </div>
+            {children}
+          </ModalProvider>
+        </NotificationProvider>
       </body>
     </html>
   );
