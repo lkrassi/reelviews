@@ -14,7 +14,7 @@ export const Notification: FC<NotificationProps> = ({
   onClose,
 }) => (
   <div
-    className={`flex items-center border-l-4 p-4 mb-2 mr-20 rounded shadow ${typeStyles[type]} animate-fade-in`}
+    className={`flex items-center border-l-4 p-4 mb-2 rounded shadow ${typeStyles[type]} animate-fade-in`}
     role="alert"
   >
     <span className="flex-1">{message}</span>

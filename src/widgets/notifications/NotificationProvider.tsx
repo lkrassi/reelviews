@@ -65,7 +65,7 @@ export const NotificationProvider = ({
     <NotificationQueue.Provider
       value={{ notifications, addNotification, removeNotification }}
     >
-      <div className="fixed z-[9999] top-4 right-4 w-full max-w-xs pointer-events-none select-none">
+      <div className="fixed z-3 bottom-4 right-4 w-full max-w-xs pointer-events-none select-none">
         {notifications.map((n) => (
           <NotificationComponent
             key={n.id}
