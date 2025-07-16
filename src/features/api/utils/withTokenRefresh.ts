@@ -11,6 +11,7 @@ export const withTokenRefresh = async <T>(
     const isExpired =
       err?.meta?.code === 'bad_access_token' ||
       err?.meta?.code === 'token_expired' ||
+      err?.meta?.code === 'invalid_authorization_header' ||
       err?.meta?.message?.toLowerCase().includes('token');
     if (!isExpired) throw err;
     const requestId = crypto.randomUUID();
