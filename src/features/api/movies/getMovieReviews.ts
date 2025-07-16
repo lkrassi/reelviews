@@ -1,4 +1,5 @@
 import { MovieReview } from './getMovieFull';
+import { withTokenRefresh } from '../utils/withTokenRefresh';
 
 export interface GetMovieReviewsResponse {
   data: {
@@ -24,15 +25,18 @@ export const getReviewsById = async (
   movieId: string,
   requestId: string,
 ): Promise<GetMovieReviewsResponse> => {
-  const params = new URLSearchParams({ movie_id: movieId });
-  const res = await fetch(
-    `https://${API_URL}/v1/reviews/movie/${page}?${params.toString()}`,
-    {
-      headers: {
-        'X-Request-Id': requestId,
+  return withTokenRefresh(async (accessToken) => {
+    const params = new URLSearchParams({ movie_id: movieId });
+    const res = await fetch(
+      `https://${API_URL}/v1/reviews/movie/${page}?${params.toString()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'X-Request-Id': requestId,
+        },
       },
-    },
-  );
-  if (!res.ok) throw await res.json();
-  return res.json();
+    );
+    if (!res.ok) throw await res.json();
+    return res.json();
+  });
 };
