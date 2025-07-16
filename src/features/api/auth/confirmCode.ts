@@ -21,10 +21,10 @@ export interface ConfirmCodeResponse {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function confirmCode(
+export const confirmCode = async (
   data: ConfirmCodeRequest,
   requestId: string,
-): Promise<ConfirmCodeResponse> {
+): Promise<ConfirmCodeResponse> => {
   const res = await fetch(`https://${API_URL}/v1/auth/confirm`, {
     method: 'POST',
     headers: {
@@ -37,4 +37,4 @@ export async function confirmCode(
     throw await res.json();
   }
   return res.json();
-}
+};
