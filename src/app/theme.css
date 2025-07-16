@@ -21,6 +21,14 @@
   --color-dark-border: #23272f;
 }
 
+html {
+  @apply bg-bg;
+}
+
+html.dark {
+  @apply bg-black;
+}
+
 h1,
 h2,
 h3,
