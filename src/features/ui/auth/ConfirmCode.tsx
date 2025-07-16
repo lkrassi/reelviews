@@ -100,7 +100,7 @@ export const ConfirmCode = ({ email, onSuccess }: ConfirmCodeProps) => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-primary dark:bg-dark-primary text-text rounded px-6 py-2 font-semibold hover:bg-accent dark:hover:bg-dark-accent transition-colors duration-200 mt-2"
+        className="bg-btn dark:bg-dark-btn text-white rounded px-4 py-2 font-semibold hover:bg-hover dark:hover:bg-dark-hover transition-colors duration-200"
       >
         {loading ? 'Проверка...' : 'Подтвердить'}
       </button>
