@@ -25,7 +25,7 @@ export const ReviewList: FC<ReviewListProps> = ({ reviews, className }) => {
             className="bg-secondary dark:bg-dark-secondary rounded-lg p-4 shadow border border-border dark:border-dark-border"
           >
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-accent dark:text-dark-accent text-base">
+              <span className="text-base text-yellow-300">
                 ★ {review.rating}
               </span>
               <span className="text-xs text-text dark:text-dark-text opacity-60">

@@ -7,6 +7,8 @@ import {
 } from '../../api/movies/getMoviesShort';
 import { Pagination } from '@/widgets/pagination/Pagination';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { movieGridStagger, movieCardPop } from '../../model/animations';
 
 export const MovieShortGrid = () => {
   const [movies, setMovies] = useState<MovieShort[]>([]);
@@ -48,18 +50,26 @@ export const MovieShortGrid = () => {
       </h1>
       {loading && <div className="text-center py-8">Загрузка...</div>}
       {error && <div className="text-center text-red-500 py-8">{error}</div>}
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 overflow-x-hidden"
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-5 gap-8 overflow-x-hidden"
         style={{ scrollbarWidth: 'none' }}
+        variants={movieGridStagger}
+        initial="hidden"
+        animate="visible"
       >
         {movies.map((movie) => (
-          <div
+          <motion.div
             key={movie.id}
-            className="group relative rounded-2xl shadow-lg border border-border dark:border-dark-border overflow-hidden cursor-pointer min-h-[340px] flex flex-col justify-end bg-border dark:bg-dark-border transition-transform duration-200 hover:scale-[1.03] hover:shadow-2xl"
+            className="group relative rounded-2xl shadow-lg bg-border overflow-hidden cursor-pointer min-h-[340px] flex flex-col justify-end  transition-transform duration-200 hover:scale-[1.03]"
             onClick={() => router.push(`/main/${movie.id}`)}
             style={{ aspectRatio: '2/3' }}
+            variants={movieCardPop}
+            whileHover={{
+              scale: 1.04,
+              boxShadow: '0 8px 32px 0 rgba(0,0,0,0.18)',
+            }}
+            whileTap={{ scale: 0.97 }}
           >
-            {/* Картинка или иконка */}
             {movie.imgUrl ? (
               <img
                 src={movie.imgUrl}
@@ -73,10 +83,8 @@ export const MovieShortGrid = () => {
                   🎬
                 </span>
               </div>
-            )}
-            {/* Верхний градиент для читаемости */}
+            )}{' '}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 pointer-events-none" />
-            {/* Жанры (чипы) */}
             {movie.genres && movie.genres.length > 0 && (
               <div className="absolute top-3 left-3 z-20 flex flex-wrap gap-1">
                 {movie.genres.slice(0, 2).map((genre) => (
@@ -94,24 +102,21 @@ export const MovieShortGrid = () => {
                 )}
               </div>
             )}
-            {/* Рейтинг */}
             {typeof movie.avgRating === 'number' && (
-              <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-black/60 dark:bg-dark-border/80 text-accent dark:text-dark-accent text-xs font-bold px-2 py-1 rounded-full shadow-sm backdrop-blur-sm">
-                <span className="text-base">★</span>{' '}
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-1 text-md text-yellow-300">
+                <span className="text-base text-yellow-300">★</span>{' '}
                 {movie.avgRating.toFixed(1)}
               </div>
             )}
-            {/* Название */}
-            <div className="relative z-20 w-full px-3 pb-4 pt-8 flex flex-col justify-end mt-auto">
-              <div className="text-lg font-bold text-white drop-shadow-lg line-clamp-2 text-shadow-md">
+            <div className="relative z-20 w-full px-3 pb-4 pt-8 flex flex-col justify-end mt-auto bg-bg dark:bg-dark-bg">
+              <div className="text-lg font-bold text-text dark:text-dark-text line-clamp-2 text-shadow-md">
                 {movie.title}
               </div>
             </div>
-            {/* Эффект нажатия */}
             <div className="absolute inset-0 z-30 transition-opacity duration-200 opacity-0 group-active:opacity-20 bg-black" />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
       <div className="flex justify-center mt-8">
         <Pagination
           page={page}

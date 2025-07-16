@@ -5,6 +5,9 @@ import { useParams } from 'next/navigation';
 import { getReviewsById } from '../../api/movies/getMovieReviews';
 import { MovieReview } from '../../api/movies/getMovieFull';
 import { ReviewList } from './ReviewList';
+import Img from '../../../../public/bao.png';
+import { motion } from 'framer-motion';
+import { fadeInUp, fadeIn, staggerContainer } from '../../model/animations';
 
 export const MovieFull = () => {
   const { id } = useParams<{ id: string }>();
@@ -66,45 +69,56 @@ export const MovieFull = () => {
   if (!movie) return null;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 flex flex-col gap-8">
-      <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-        <div className="w-48 h-72 bg-border dark:bg-dark-border rounded-lg flex items-center justify-center overflow-hidden">
-          {movie.imgUrl ? (
-            <img
-              src={movie.imgUrl}
-              alt={movie.title}
-              className="w-full h-full object-cover object-center"
-            />
-          ) : (
-            <span className="text-5xl text-accent dark:text-dark-accent">
-              🎬
-            </span>
+    <motion.div
+      className="max-w-6xl mx-auto px-2 md:px-6 py-8 flex flex-col gap-10"
+      variants={staggerContainer}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div
+        className="flex flex-col md:flex-row gap-8 items-center md:items-start"
+        variants={fadeInUp}
+      >
+        <motion.div
+          className="relative w-full md:w-56 h-80 rounded-2xl overflow-hidden shadow-lg border border-border dark:border-dark-border bg-border dark:bg-dark-border flex items-center justify-center"
+          variants={fadeIn}
+        >
+          <img src={Img.src} alt="" />
+          {typeof movie.avgRating === 'number' && (
+            <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/70 dark:bg-dark-border/80 text-yellow-300 text-sm font-bold px-3 py-1 rounded-full shadow backdrop-blur-sm z-10">
+              <span className="text-lg">★</span> {movie.avgRating.toFixed(1)}
+            </div>
           )}
-        </div>
-        <div className="flex-1 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold text-primary dark:text-dark-primary mb-2">
+        </motion.div>
+        <motion.div className="flex-1 flex flex-col gap-3" variants={fadeInUp}>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-primary dark:text-dark-primary mb-1 drop-shadow">
             {movie.title}
           </h1>
           {movie.genres && movie.genres.length > 0 && (
-            <div className="text-sm text-text dark:text-dark-text opacity-70 mb-1">
-              Жанры: {movie.genres.join(', ')}
+            <div className="flex flex-wrap gap-2 mb-2">
+              {movie.genres.map((genre) => (
+                <span
+                  key={genre}
+                  className="bg-accent/80 dark:bg-dark-accent/80 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm backdrop-blur-sm"
+                >
+                  {genre}
+                </span>
+              ))}
             </div>
           )}
-          {typeof movie.avgRating === 'number' && (
-            <div className="text-lg text-accent dark:text-dark-accent mb-1 flex items-center gap-1">
-              <span className="text-2xl">★</span> {movie.avgRating.toFixed(1)}
-            </div>
-          )}
-        </div>
-      </div>
-      <div>
-        <h2 className="text-xl font-semibold mb-4 text-primary dark:text-dark-primary">
+        </motion.div>
+      </motion.div>
+      <motion.div
+        className="bg-secondary dark:bg-dark-secondary mt-10 rounded-2xl shadow p-6 border border-border dark:border-dark-border"
+        variants={fadeInUp}
+      >
+        <h2 className="text-2xl font-bold mb-6 text-primary dark:text-dark-primary tracking-tight">
           Отзывы
         </h2>
         <ReviewList reviews={allReviews || movie.reviews || []} />
         {movie.reviews && movie.reviews.length >= 50 && !allReviews && (
           <button
-            className="mb-4 px-4 py-2 rounded bg-accent text-white dark:bg-dark-accent hover:opacity-90 transition disabled:opacity-60"
+            className="mt-6 px-6 py-2 rounded-full bg-accent text-white dark:bg-dark-accent font-semibold text-base shadow hover:scale-105 hover:opacity-90 transition-all duration-200 disabled:opacity-60"
             onClick={handleShowAllReviews}
             disabled={allReviewsLoading}
           >
@@ -112,9 +126,9 @@ export const MovieFull = () => {
           </button>
         )}
         {allReviewsError && (
-          <div className="text-red-500 mb-2">{allReviewsError}</div>
+          <div className="text-red-500 mt-4">{allReviewsError}</div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
