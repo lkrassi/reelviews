@@ -72,10 +72,7 @@ p {
   @apply text-dark-text;
 }
 a {
-  @apply text-primary duration-200;
-}
-.dark a {
-  @apply text-dark-primary;
+  @apply duration-200;
 }
 ul,
 ol {
