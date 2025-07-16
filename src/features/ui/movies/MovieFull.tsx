@@ -83,7 +83,21 @@ export const MovieFull = () => {
           className="relative w-full md:w-56 h-80 rounded-2xl overflow-hidden shadow-lg border border-border dark:border-dark-border bg-border dark:bg-dark-border flex items-center justify-center"
           variants={fadeIn}
         >
-          <img src={Img.src} alt="" />
+          {movie.imgUrl ? (
+            <>
+              <img
+                src={movie.imgUrl}
+                alt={movie.title}
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </>
+          ) : (
+            <span className="text-6xl text-accent dark:text-dark-accent opacity-60">
+              🎬
+            </span>
+          )}
+
           {typeof movie.avgRating === 'number' && (
             <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/70 dark:bg-dark-border/80 text-yellow-300 text-sm font-bold px-3 py-1 rounded-full shadow backdrop-blur-sm z-10">
               <span className="text-lg">★</span> {movie.avgRating.toFixed(1)}

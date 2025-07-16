@@ -27,7 +27,6 @@ export const staggerContainer: Variants = {
   },
 };
 
-// Новые анимации для MovieShortGrid
 export const movieGridStagger: Variants = {
   hidden: {},
   visible: {

@@ -2,11 +2,20 @@
 
 import { useTheme } from '../hooks/useTheme';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isDark = theme === 'dark';
+
+  if (!mounted) return null;
+
   return (
     <button
       aria-label={isDark ? 'Светлая тема' : 'Тёмная тема'}
