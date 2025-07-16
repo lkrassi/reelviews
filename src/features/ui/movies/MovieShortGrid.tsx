@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { movieGridStagger } from '../../model/animations';
 import { MovieCard } from './MovieCard';
+import { SearchMovie } from './SearchMovie';
 
 export const MovieShortGrid = () => {
   const [movies, setMovies] = useState<MovieShort[]>([]);
@@ -46,9 +47,8 @@ export const MovieShortGrid = () => {
 
   return (
     <div className="flex flex-col gap-8 px-2 md:px-8 py-8">
-      <h1 className="text-3xl font-bold mb-2 text-primary dark:text-dark-primary text-center">
-        Фильмы
-      </h1>
+      <SearchMovie />
+
       {loading && <div className="text-center py-8">Загрузка...</div>}
       {error && <div className="text-center text-red-500 py-8">{error}</div>}
       <motion.div
