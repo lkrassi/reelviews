@@ -4,6 +4,7 @@ import { logIn } from '../../api/auth/logIn';
 import { useNotifications } from '@/widgets';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { getUserByToken } from '../../api/user/getUserByToken';
 
 export const LogInForm = () => {
   const { addNotification } = useNotifications();
@@ -20,6 +21,13 @@ export const LogInForm = () => {
       const res = await logIn({ email, password }, requestId);
       localStorage.setItem('accessToken', res.data.accessToken);
       localStorage.setItem('refreshToken', res.data.refreshToken);
+      try {
+        const userRes = await getUserByToken(
+          res.data.accessToken,
+          crypto.randomUUID(),
+        );
+        localStorage.setItem('user', JSON.stringify(userRes.data));
+      } catch (userErr) {}
       addNotification({ type: 'success', message: 'Успешный вход!' });
       router.push('/main');
     } catch (err: any) {
