@@ -55,7 +55,7 @@ export const UpdateReview = ({
         }}
       >
         <textarea
-          className="border rounded p-2 resize-none text-sm sm:text-base min-h-[80px] dark:text-white placeholder:dark:text-white border-border dark:border-dark-border focus:border-primary dark:focus:border-dark-primary"
+          className="border rounded p-2 mt-5 resize-none text-sm sm:text-base min-h-[80px] dark:text-white placeholder:dark:text-white border-border dark:border-dark-border focus:border-primary dark:focus:border-dark-primary"
           defaultValue={description}
           onChange={(e) => (description = e.target.value)}
           required
