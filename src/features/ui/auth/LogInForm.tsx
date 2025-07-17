@@ -67,7 +67,7 @@ export const LogInForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-btn dark:bg-dark-btn text-white rounded px-4 py-2 font-semibold hover:bg-hover dark:hover:bg-dark-hover transition-colors duration-200"
+        className="bg-btn dark:bg-dark-btn text-white rounded px-4 py-2 font-semibold hover:bg-hover dark:hover:bg-dark-hover"
       >
         {loading ? 'Вход...' : 'Войти'}
       </button>

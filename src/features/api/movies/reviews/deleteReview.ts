@@ -1,0 +1,42 @@
+import { withTokenRefresh } from '../../utils/withTokenRefresh';
+
+export interface DeleteReviewRequest {
+  id: string;
+}
+
+export interface DeleteReviewResponse {
+  data: string;
+  meta: {
+    code: string;
+    error: string;
+    message: string;
+    requestId: string;
+  };
+  pagination: {
+    page: number;
+    pages: number;
+    perPage: number;
+  };
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export const deleteReview = async (
+  accessToken: string,
+  requestId: string,
+  id: string,
+): Promise<DeleteReviewResponse> => {
+  return withTokenRefresh(async (accessToken) => {
+    const res = await fetch(`https://${API_URL}/v1/reviews/my`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        'X-Request-Id': requestId,
+      },
+      body: JSON.stringify({ id }),
+    });
+    if (!res.ok) throw await res.json();
+    return res.json();
+  });
+};

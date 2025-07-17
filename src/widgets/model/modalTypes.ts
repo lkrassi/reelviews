@@ -8,7 +8,7 @@ export interface ModalProps {
   title?: string;
   children: ReactNode;
   size?: ModalSize;
-  showCloseButton?: boolean;
+  closable?: boolean;
   className?: string;
 }
 

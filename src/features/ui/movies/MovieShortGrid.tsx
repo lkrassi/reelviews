@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { movieGridStagger } from '../../model/animations';
 import { MovieCard } from './MovieCard';
 import { SearchMovie } from './SearchMovie';
+import { useNotifications } from '@/widgets';
 
 export const MovieShortGrid = () => {
   const [movies, setMovies] = useState<MovieShort[]>([]);
@@ -18,13 +19,12 @@ export const MovieShortGrid = () => {
   const [pendingPage, setPendingPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { addNotification } = useNotifications();
 
   useEffect(() => {
     let ignore = false;
     setLoading(true);
-    setError(null);
     (async () => {
       try {
         const res: GetMoviesShortResponse = await getMoviesShort(pendingPage);
@@ -35,7 +35,12 @@ export const MovieShortGrid = () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } catch (e: any) {
-        if (!ignore) setError(e?.meta?.message || 'Ошибка загрузки фильмов');
+        if (!ignore) {
+          addNotification({
+            type: 'error',
+            message: 'Ошибка загрузки фильмов',
+          });
+        }
       } finally {
         if (!ignore) setLoading(false);
       }
@@ -50,7 +55,6 @@ export const MovieShortGrid = () => {
       <SearchMovie />
 
       {loading && <div className="text-center py-8">Загрузка...</div>}
-      {error && <div className="text-center text-red-500 py-8">{error}</div>}
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-5 gap-8 overflow-x-hidden"
         style={{ scrollbarWidth: 'none' }}

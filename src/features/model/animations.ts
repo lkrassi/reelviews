@@ -46,3 +46,39 @@ export const movieCardPop: Variants = {
     transition: { type: 'spring', stiffness: 120, damping: 16, mass: 0.7 },
   },
 };
+
+export const deleteTextFade: Variants = {
+  hidden: { opacity: 0, y: -50 },
+  visible: {
+    opacity: 1,
+    y: 2,
+    transition: { duration: 0.18, ease: 'easeOut' },
+  },
+};
+
+export const updateTextFade: Variants = {
+  hidden: { opacity: 0, y: 2 },
+  visible: {
+    opacity: 1,
+    y: -55,
+    transition: { duration: 0.18, ease: 'easeOut' },
+  },
+};
+
+export const profilePhotoModalFade: Variants = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.25, ease: 'easeOut' },
+  },
+};
+
+export const backTextFade: Variants = {
+  hidden: { opacity: 0, x: 12 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.18, ease: 'easeOut' },
+  },
+};

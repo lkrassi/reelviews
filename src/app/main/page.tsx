@@ -1,9 +1,13 @@
 import { MovieShortGrid } from '@/features';
+import { Header } from '@/widgets';
 
 export default function MainPage() {
   return (
-    <main className="min-h-screen mt-10 bg-bg dark:bg-black">
-      <MovieShortGrid />
-    </main>
+    <>
+      <Header />
+      <main className="min-h-screen bg-bg dark:bg-black">
+        <MovieShortGrid />
+      </main>
+    </>
   );
 }

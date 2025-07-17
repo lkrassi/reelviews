@@ -1,9 +1,13 @@
 import { MovieFull } from '@/features';
+import { Header } from '@/widgets';
 
 export default function MoviePage() {
   return (
-    <div className="mt-10">
-      <MovieFull />;
-    </div>
+    <>
+      <Header />
+      <main className="mt-10">
+        <MovieFull />;
+      </main>
+    </>
   );
 }

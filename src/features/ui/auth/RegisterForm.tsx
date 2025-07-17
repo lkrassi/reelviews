@@ -35,7 +35,7 @@ export const RegisterForm = () => {
             router.push('/auth/login');
           }}
         />,
-        { title: 'Подтвердите почту', size: 'md', showCloseButton: false },
+        { title: 'Подтвердите почту', size: 'md', closable: false },
       );
     } catch (err: any) {
       addNotification({
@@ -82,7 +82,7 @@ export const RegisterForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-btn dark:bg-dark-btn text-white rounded px-4 py-2 font-semibold hover:bg-hover dark:hover:bg-dark-hover transition-colors duration-200"
+        className="bg-btn dark:bg-dark-btn text-white rounded px-4 py-2 font-semibold hover:bg-hover dark:hover:bg-dark-hover"
       >
         {loading ? 'Регистрация...' : 'Зарегистрироваться'}
       </button>

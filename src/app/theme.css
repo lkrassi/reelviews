@@ -21,6 +21,17 @@
   --color-dark-border: #23272f;
 }
 
+.ewq {
+  background: #f7f7f8;
+  background: #18191a;
+  background: #23272f;
+  background: #e3e4e8;
+  background: #3a3a3c;
+  background: #ffff;
+  background: #ededf0;
+  background: #23272f;
+}
+
 html {
   @apply bg-bg;
 }
@@ -35,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-primary duration-200;
+  @apply text-primary;
 }
 
 .dark h1,
@@ -66,13 +77,10 @@ h6 {
   @apply text-base text-primary font-medium leading-snug sm:text-sm md:text-lg;
 }
 p {
-  @apply text-text duration-200 leading-relaxed text-base sm:text-sm md:text-lg;
+  @apply text-text leading-relaxed text-base sm:text-sm md:text-lg;
 }
 .dark p {
   @apply text-dark-text;
-}
-a {
-  @apply duration-200;
 }
 ul,
 ol {
@@ -82,12 +90,12 @@ li {
   @apply mb-1;
 }
 button {
-  @apply px-4 py-2 rounded cursor-pointer font-medium transition-colors duration-200 border-0;
+  @apply px-4 py-2 rounded cursor-pointer font-medium transition-colors duration-200 border-0 outline-0;
 }
 input,
 textarea {
   @apply border rounded px-3 py-2 w-full bg-transparent transition-colors duration-200 outline-0;
 }
 img {
-  @apply max-w-full h-auto rounded;
+  @apply max-w-full h-auto;
 }

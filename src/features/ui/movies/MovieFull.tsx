@@ -4,30 +4,36 @@ import { getMovieFull, MovieFullParams } from '../../api/movies/getMovieFull';
 import { useParams } from 'next/navigation';
 import { getReviewsById } from '../../api/movies/getMovieReviews';
 import { MovieReview } from '../../api/movies/getMovieFull';
-import { ReviewList } from './ReviewList';
+import { ReviewList } from './reviews/ReviewList';
 import Img from '../../../../public/bao.png';
 import { motion } from 'framer-motion';
 import { fadeInUp, fadeIn, staggerContainer } from '../../model/animations';
+import { AddReview } from './reviews/AddReview';
+import { useNotifications } from '@/widgets';
 
 export const MovieFull = () => {
   const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<MovieFullParams | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [allReviews, setAllReviews] = useState<MovieReview[] | null>(null);
   const [allReviewsLoading, setAllReviewsLoading] = useState(false);
   const [allReviewsError, setAllReviewsError] = useState<string | null>(null);
+  const { addNotification } = useNotifications();
 
   useEffect(() => {
     let ignore = false;
     setLoading(true);
-    setError(null);
     (async () => {
       try {
         const res = await getMovieFull(id);
         if (!ignore) setMovie(res.data.movie);
       } catch (e: any) {
-        if (!ignore) setError(e?.meta?.message || 'Ошибка загрузки фильма');
+        if (!ignore) {
+          addNotification({
+            type: 'error',
+            message: 'Ошибка загрузки фильма',
+          });
+        }
       } finally {
         if (!ignore) setLoading(false);
       }
@@ -57,15 +63,17 @@ export const MovieFull = () => {
       }
       setAllReviews(all);
     } catch (e: any) {
-      setAllReviewsError(e?.meta?.message || 'Ошибка загрузки рецензий');
+      addNotification({
+        type: 'error',
+        message: 'Ошибка загрузки рецензий',
+      });
     } finally {
       setAllReviewsLoading(false);
     }
   };
 
-  if (loading) return <div className="text-center py-8">Загрузка...</div>;
-  if (error)
-    return <div className="text-center text-red-500 py-8">{error}</div>;
+  if (loading)
+    return <div className="text-center py-8 dark:text-white">Загрузка...</div>;
   if (!movie) return null;
 
   return (
@@ -123,13 +131,22 @@ export const MovieFull = () => {
         </motion.div>
       </motion.div>
       <motion.div
-        className="bg-secondary dark:bg-dark-secondary mt-10 rounded-2xl shadow p-6 border border-border dark:border-dark-border"
+        className="mt-10 rounded-2xl shadow p-6 border border-border dark:border-dark-border bg-white dark:bg-dark-bg"
         variants={fadeInUp}
       >
         <h2 className="text-2xl font-bold mb-6 text-primary dark:text-dark-primary tracking-tight">
           Отзывы
         </h2>
-        <ReviewList reviews={allReviews || movie.reviews || []} />
+        <ReviewList
+          reviews={allReviews || movie.reviews || []}
+          onDeleteSuccess={async () => {
+            try {
+              const res = await getMovieFull(movie.id);
+              setMovie(res.data.movie);
+              setAllReviews(null);
+            } catch {}
+          }}
+        />
         {movie.reviews && movie.reviews.length >= 50 && !allReviews && (
           <button
             className="mt-6 px-6 py-2 rounded-full bg-accent text-white dark:bg-dark-accent font-semibold text-base shadow hover:scale-105 hover:opacity-90 transition-all duration-200 disabled:opacity-60"
@@ -139,9 +156,18 @@ export const MovieFull = () => {
             {allReviewsLoading ? 'Загрузка...' : 'Показать все рецензии'}
           </button>
         )}
-        {allReviewsError && (
-          <div className="text-red-500 mt-4">{allReviewsError}</div>
-        )}
+        <div className="mt-10">
+          <AddReview
+            movieId={movie.id}
+            onSuccess={async () => {
+              try {
+                const res = await getMovieFull(movie.id);
+                setMovie(res.data.movie);
+                setAllReviews(null);
+              } catch {}
+            }}
+          />
+        </div>
       </motion.div>
     </motion.div>
   );
