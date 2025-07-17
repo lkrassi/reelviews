@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { profilePhotoModalFade } from '../../model/animations';
 
-export const UserPhoto = () => {
+export const UserInfo = () => {
   const [imgUrl, setImgUrl] = useState('');
+  const [username, setUsername] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -19,6 +20,9 @@ export const UserPhoto = () => {
               ? user.imgUrl
               : `https://${user.imgUrl}`,
           );
+        }
+        if (user.username) {
+          setUsername(user.username);
         }
       }
     } catch (e) {}
@@ -48,6 +52,11 @@ export const UserPhoto = () => {
               className="w-full h-full object-cover"
             />
           </div>
+          {username && (
+            <div className="text-xl font-bold text-center mt-2 break-all">
+              {username}
+            </div>
+          )}
           {showModal && (
             <div
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
