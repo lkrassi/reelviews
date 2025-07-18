@@ -56,7 +56,7 @@ export const MovieShortGrid = () => {
 
       {loading && <div className="text-center py-8">Загрузка...</div>}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-5 gap-8 overflow-x-hidden"
+        className="grid grid-cols-1 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-5 gap-8 overflow-x-hidden"
         style={{ scrollbarWidth: 'none' }}
         variants={movieGridStagger}
         initial="hidden"

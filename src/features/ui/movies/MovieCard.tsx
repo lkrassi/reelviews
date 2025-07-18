@@ -66,7 +66,7 @@ export const MovieCard = ({
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            className="absolute left-1/2 -translate-x-1/2 bottom-8 text-white text-base px-7 py-3 rounded-xl z-50 pointer-events-none whitespace-nowrap font-bold tracking-wide"
+            className="relative text-center bottom-8 text-white text-base px-4 py-2 rounded-xl z-50 pointer-events-none font-bold tracking-wide break-words whitespace-normal"
             initial={{ opacity: 0, y: 20, scale: 0.85 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.85 }}
