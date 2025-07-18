@@ -3,3 +3,4 @@ export * from './ui/auth/LogInForm';
 export * from './ui/movies/MovieShortGrid';
 export * from './ui/movies/MovieFull';
 export * from './ui/user/Profile';
+export * from './ui/movies/RecomendedToUserMovies';

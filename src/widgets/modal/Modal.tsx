@@ -52,7 +52,7 @@ export const Modal: FC<ModalProps & { closable?: boolean }> = ({
         {closable && (
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-2xl !bg-transparent text-text"
+            className="absolute top-3 right-3 text-2xl !bg-transparent text-text dark:text-dark-text"
             aria-label="Закрыть модальное окно"
             type="button"
           >

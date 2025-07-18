@@ -13,7 +13,9 @@ import { useNotifications } from '@/widgets';
 
 export const MovieFull = () => {
   const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<MovieFullParams | null>(null);
+  const [movieData, setMovieData] = useState<{
+    movie: MovieFullParams;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [allReviews, setAllReviews] = useState<MovieReview[] | null>(null);
   const [allReviewsLoading, setAllReviewsLoading] = useState(false);
@@ -26,7 +28,7 @@ export const MovieFull = () => {
     (async () => {
       try {
         const res = await getMovieFull(id);
-        if (!ignore) setMovie(res.data.movie);
+        if (!ignore) setMovieData(res.data);
       } catch (e: any) {
         if (!ignore) {
           addNotification({
@@ -74,7 +76,8 @@ export const MovieFull = () => {
 
   if (loading)
     return <div className="text-center py-8 dark:text-white">Загрузка...</div>;
-  if (!movie) return null;
+  if (!movieData) return null;
+  const { movie } = movieData;
 
   return (
     <motion.div
@@ -142,7 +145,7 @@ export const MovieFull = () => {
           onDeleteSuccess={async () => {
             try {
               const res = await getMovieFull(movie.id);
-              setMovie(res.data.movie);
+              setMovieData(res.data);
               setAllReviews(null);
             } catch {}
           }}
@@ -162,7 +165,7 @@ export const MovieFull = () => {
             onSuccess={async () => {
               try {
                 const res = await getMovieFull(movie.id);
-                setMovie(res.data.movie);
+                setMovieData(res.data);
                 setAllReviews(null);
               } catch {}
             }}

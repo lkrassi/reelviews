@@ -19,7 +19,7 @@ export const ThemeSwitcher = () => {
   return (
     <button
       aria-label={isDark ? 'Светлая тема' : 'Тёмная тема'}
-      className="hover:scale-103 duration-200 active:scale-95"
+      className="hover:scale-105 active:scale-95 transition duration-200"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
       {isDark ? (

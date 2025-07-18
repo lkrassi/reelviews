@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import { NotificationProvider } from '@/widgets';
 import { ModalProvider } from '@/widgets';
 import { ThemeSwitcher } from '@/widgets';
+import { UserProvider } from '@/features/model/userStore';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,14 +35,16 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NotificationProvider>
-          <ModalProvider>
-            <div className="absolute top-4 right-4 z-3">
-              <ThemeSwitcher />
-            </div>
-            {children}
-          </ModalProvider>
-        </NotificationProvider>
+        <UserProvider>
+          <NotificationProvider>
+            <ModalProvider>
+              <div className="absolute top-4 right-4 z-3">
+                <ThemeSwitcher />
+              </div>
+              {children}
+            </ModalProvider>
+          </NotificationProvider>
+        </UserProvider>
       </body>
     </html>
   );
