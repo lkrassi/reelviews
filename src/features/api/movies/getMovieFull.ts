@@ -9,6 +9,15 @@ export interface MovieReview {
   userId: string;
 }
 
+export interface RecommendedMovie {
+  id: string;
+  title: string;
+  imgUrl?: string;
+  genres?: string[] | null;
+  avgRating?: number;
+  similarityScore: number;
+}
+
 export interface MovieFullParams {
   id: string;
   title: string;
@@ -21,6 +30,7 @@ export interface MovieFullParams {
 export interface GetMovieFullResponse {
   data: {
     movie: MovieFullParams;
+    recomendations?: RecommendedMovie[];
   };
   meta: {
     code: string;

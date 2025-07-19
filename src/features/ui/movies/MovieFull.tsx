@@ -1,20 +1,25 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { getMovieFull, MovieFullParams } from '../../api/movies/getMovieFull';
+import {
+  getMovieFull,
+  MovieFullParams,
+  RecommendedMovie,
+} from '../../api/movies/getMovieFull';
 import { useParams } from 'next/navigation';
 import { getReviewsById } from '../../api/movies/getMovieReviews';
 import { MovieReview } from '../../api/movies/getMovieFull';
 import { ReviewList } from './reviews/ReviewList';
-import Img from '../../../../public/bao.png';
 import { motion } from 'framer-motion';
 import { fadeInUp, fadeIn, staggerContainer } from '../../model/animations';
 import { AddReview } from './reviews/AddReview';
 import { useNotifications } from '@/widgets';
+import { RecommendedToFilmMovies } from './RecommendedToFilmMovies';
 
 export const MovieFull = () => {
   const { id } = useParams<{ id: string }>();
   const [movieData, setMovieData] = useState<{
     movie: MovieFullParams;
+    recomendations?: RecommendedMovie[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [allReviews, setAllReviews] = useState<MovieReview[] | null>(null);
@@ -172,6 +177,12 @@ export const MovieFull = () => {
           />
         </div>
       </motion.div>
+
+      {movieData.recomendations && movieData.recomendations.length > 0 && (
+        <motion.div variants={fadeInUp}>
+          <RecommendedToFilmMovies recommendations={movieData.recomendations} />
+        </motion.div>
+      )}
     </motion.div>
   );
 };

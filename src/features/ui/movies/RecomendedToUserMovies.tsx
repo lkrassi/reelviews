@@ -58,12 +58,12 @@ export const RecomendedToUserMovies: FC = () => {
     return <div className="text-center py-8">Нет рекомендаций</div>;
 
   return (
-    <div className="max-w-6xl mx-auto px-2 md:px-6 py-8">
+    <div className="flex flex-col gap-8 px-2 md:px-8 py-8">
       <h2 className="text-2xl text-center font-bold mb-6 text-primary dark:text-dark-primary tracking-tight">
         Персональные рекомендации
       </h2>
       <SearchMovie />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-5 gap-8 overflow-x-hidden mt-8">
+      <div className="grid grid-cols-1 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-5 gap-8 overflow-x-hidden">
         {state.movies.map((rec) => (
           <MovieCard
             key={rec.id}
@@ -81,5 +81,3 @@ export const RecomendedToUserMovies: FC = () => {
     </div>
   );
 };
-
-export default RecomendedToUserMovies;

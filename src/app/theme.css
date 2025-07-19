@@ -82,13 +82,7 @@ p {
 .dark p {
   @apply text-dark-text;
 }
-ul,
-ol {
-  @apply pl-6 mb-4;
-}
-li {
-  @apply mb-1;
-}
+
 button {
   @apply px-4 py-2 cursor-pointer font-medium transition duration-200 border-0 outline-0;
 }
